@@ -1,6 +1,7 @@
 const router = require("express").Router()
 const authCtrl = require("./authController")
 const { verifyToken } = require("../middleware/verifyToken")
+const profileCtrl = require("./profileController")
 
 /* 
 profile-controller.js
@@ -23,5 +24,8 @@ router.post("/login", authCtrl.login)
 
 // Protected Routes
 router.use(verifyToken)
+router.get("/profile", profileCtrl.getProfile)
+router.post("/profile", profileCtrl.createProfile)
+router.put("/profile/:id", profileCtrl.updateProfile)
 
 module.exports = router
