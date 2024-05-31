@@ -19,7 +19,7 @@ auth-controller.js
 - 'register'
 */
 
-// user routes
+// user routesls
 router.post("/register", authCtrl.register)
 router.post("/login", authCtrl.login)
 

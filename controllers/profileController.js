@@ -7,7 +7,9 @@ PUT /profile - allows us to update our own profile
 const getProfile = async (req, res) => {
     try {
         const foundProfile = await db.Profile.find({User: req.user.id })
+        const foundFeed = await db.Feed.find({User: req.user.id })
         console.log(foundProfile)
+        console.log(foundFeed)
         if (!foundProfile) {
             res.status(404).json({ message: "Cannot find Profile" })
         } else {
@@ -34,7 +36,7 @@ const updateProfile = async (req, res) => {
         if (!updatedProfile) {
             res.status(400).json({ message: "Could not update Profile" })
         } else {
-            res.status(200).json({ Data: updatedFavoriteArtist, message: "Profile Updated" })
+            res.status(200).json({ Data: updatedProfile, message: "Profile Updated" })
         }
     } catch (err) {
         res.status(400).json({ error: err.message })
