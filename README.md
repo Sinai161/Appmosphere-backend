@@ -16,13 +16,9 @@
 
 router.post("/register")
 router.post("/login")
-
-## Profile
 router.get("/profile", profileCtrl.getProfile)
 router.post("/profile", profileCtrl.createProfile)
 router.put("/profile/:id", profileCtrl.updateProfile)
-
-## Feed
 router.get("/feed",)
 router.post("/feed",)
 
