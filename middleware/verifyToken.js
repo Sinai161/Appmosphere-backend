@@ -16,7 +16,6 @@ const createToken = (user) => {
 
 const verifyToken = (req, res, next) => {
     try {
-        // .split(" ")[1]
         // identifying the type of token being used
         const bearerHeader = req.headers["authorization"].split(" ")[1];
         console.log(bearerHeader, " <-- this is bearerheader")
