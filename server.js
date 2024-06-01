@@ -6,8 +6,6 @@ const cors = require("cors")
 
 const routes = require("./controllers")
 
-console.log("MONGO", MONGODB_URI)
-
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
