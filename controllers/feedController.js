@@ -6,7 +6,6 @@ GET /feed - query the Feed table and get all the posts - Bonus filter out your o
 const getFeed = async (req, res) => {
     try {
         const foundFeed = await db.Feed.find({})
-        console.log(foundFeed)
         if (!foundFeed) {
             res.status(404).json({ message: "Cannot find feed" })
         } else {
