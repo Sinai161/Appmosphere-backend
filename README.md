@@ -16,9 +16,9 @@
 
 * router.post("/register")
 * router.post("/login")
-* router.get("/profile", profileCtrl.getProfile)
-* router.post("/profile", profileCtrl.createProfile)
-* router.put("/profile/:id", profileCtrl.updateProfile)
+* router.get("/profile")
+* router.post("/profile")
+* router.put("/profile/:id")
 * router.get("/feed",)
 * router.post("/feed",)
 

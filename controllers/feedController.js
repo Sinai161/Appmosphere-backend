@@ -17,7 +17,8 @@ const getFeed = async (req, res) => {
 
 const createFeed = async (req, res) => {
     try {
-        const createdFeed = await db.Feed.create({...req.body, User: req.user.id })
+        console.log(req.body.feed.img)
+        const createdFeed = await db.Feed.create({ img:req.body.feed.img, User: req.user.id })
         createdFeed.save()
         console.log(createdFeed)
         if (!createFeed) {

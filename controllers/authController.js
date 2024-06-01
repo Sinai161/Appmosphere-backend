@@ -56,7 +56,26 @@ const login = async (req, res) => {
     }
 }
 
+const getUser = async (req, res) => {
+    try {
+        const id = req.user.id
+        const query = db.User.findById(id)
+
+        query.select("-password")
+        const foundUser = await query.exec()
+        const foundProfile = await db.Profile.find({ User: id })
+        if (!foundUser) {
+            return res.status(400).json({ error: "User not found" })
+        }
+        return res.status(200).json({ message: "Successfully found user", data: {user: foundUser, profile:foundProfile[0]} })
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ error: "Internal server error" })
+    }
+}
+
 module.exports = {
     register,
-    login
+    login,
+    getUser
 }

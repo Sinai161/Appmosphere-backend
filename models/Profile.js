@@ -6,6 +6,7 @@ const profileSchema = new mongoose.Schema({
     img: { type: String, required: true },
     bio: { type: String, required: true },
     User: { type: mongoose.Types.ObjectId, ref: User },
+    following: [String],
 })
 
 

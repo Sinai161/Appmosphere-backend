@@ -6,20 +6,24 @@ PUT /profile - allows us to update our own profile
 */
 const getProfile = async (req, res) => {
     try {
-        const foundProfile = await db.Profile.find({User: req.user.id })
-        const foundFeed = await db.Feed.find({User: req.user.id })
-        console.log(foundProfile)
-        console.log(foundFeed)
+        const foundProfile = await db.Profile.find({ User: req.user.id })
+        const foundFeed = await db.Feed.find({ User: req.user.id })
         if (!foundProfile) {
             res.status(404).json({ message: "Cannot find Profile" })
         } else {
-            res.status(200).json({ data: foundProfile })
+            res.status(200).json({
+                data: {
+                    foundProfile,
+                    foundFeed
+                }
+            })
         }
     } catch (err) { res.status(400).json({ error: err.message }) }
 }
+
 const createProfile = async (req, res) => {
     try {
-        const createdProfile = await db.Profile.create({...req.body, User: req.user.id })
+        const createdProfile = await db.Profile.create({ ...req.body.profile, User: req.user.id })
         createdProfile.save()
         console.log(createdProfile)
         if (!createProfile) {
@@ -43,10 +47,54 @@ const updateProfile = async (req, res) => {
     }
 }
 
+const getProfileById = async (req, res) => {
+    try {
+        const foundProfile = await db.Profile.find({ User: req.params.id })
+        foundProfile.following
+        const foundFeed = await db.Feed.find({ User: req.params.id })
+        console.log(foundProfile)
+        if (!foundProfile) {
+            res.status(404).json({ message: "Cannot find Profile" })
+        } else {
+            res.status(200).json({
+                data: {
+                    foundProfile,
+                    foundFeed
+                }
+            })
+        }
+    } catch (err) { res.status(400).json({ error: err.message }) }
+}
+
+/* 
+getAllProfilesFollowed 
+query the token user and get their profile
+check if profile.following exists if not return an empty array
+then query Profile with findAll([profile.following])
+*/
+
+const followUser = async (req, res) => {
+    try {
+        let Profile = await db.Profile.find({ User: req.user.id })
+        Profile = Profile[0]
+
+        if (!Profile.following) {
+            Profile.following = [];
+        }
+        Profile.following.push(req.params.id)
+        Profile.save()
+        res.status(200).json({ Profile });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+        console.log("Error in followUser: ", err.message);
+    }
+};
 
 
 module.exports = {
     getProfile,
     createProfile,
-    updateProfile
+    updateProfile,
+    getProfileById,
+    followUser
 }

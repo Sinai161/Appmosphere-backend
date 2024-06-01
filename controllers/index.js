@@ -27,9 +27,12 @@ router.post("/login", authCtrl.login)
 router.use(verifyToken)
 
 // Profile
+router.get("/user/:id", authCtrl.getUser)
 router.get("/profile", profileCtrl.getProfile)
 router.post("/profile", profileCtrl.createProfile)
 router.put("/profile/:id", profileCtrl.updateProfile)
+router.get("/profile/:id", profileCtrl.getProfileById)
+router.post("/follow/:id", profileCtrl.followUser);
 
 // Feed
 router.get("/feed", feedCtrl.getFeed)
